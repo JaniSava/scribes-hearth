@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scribe's Hearth — Author Sanctuary & Codex</title>
+  
+  <!-- Creator & Application Attribution Metadata -->
+  <meta name="author" content="Jani" />
+  <meta name="application-name" content="Scribe's Hearth" />
+  <meta name="description" content="An atmospheric creative sanctuary, codex, and manuscript workshop for novelists and worldbuilders. Authored & designed by Jani." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Playfair Display, EB Garamond, Cinzel -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500;1,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Vector Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            serif: ['EB Garamond', 'Georgia', 'serif'],
+            display: ['Playfair Display', 'Georgia', 'serif'],
+            cinzel: ['Cinzel', 'serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body.theme-sepia {
+      background-color: #f7efe4;
+      color: #3f3123;
+    }
+    body.theme-light {
+      background-color: #fcfbf9;
+      color: #2b2621;
+    }
+    body.theme-dark {
+      background-color: #121114;
+      color: #ded9d2;
+    }
+
+    .drop-cap::first-letter {
+      float: left;
+      font-family: 'Cinzel', serif;
+      font-size: 3.75rem;
+      line-height: 0.82;
+      padding-top: 4px;
+      padding-right: 12px;
+      padding-bottom: 2px;
+      color: #c98a36;
+      font-weight: 700;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+    }
+    .theme-dark .drop-cap::first-letter {
+      color: #e5a93c;
+    }
+
+    ::selection {
+      background: #e2ba7e;
+      color: #1a1612;
+    }
+  </style>
+</head>
+<body class="theme-sepia font-serif min-h-screen flex flex-col transition-colors duration-300">
+
+  <!-- ================= TOP NAVIGATION BAR ================= -->
+  <header class="border-b border-[#e5d4c0] dark:border-[#2a2730] px-4 sm:px-8 py-3.5 transition-colors sticky top-0 z-50 backdrop-blur-md bg-opacity-90 bg-[#f7efe4] dark:bg-[#121114]">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      
+      <!-- Brand & Author Header -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-xl bg-[#ebd9c5] dark:bg-[#25222b] border border-[#d6beaa] dark:border-[#383340] flex items-center justify-center text-[#c98a36] shadow-sm">
+          <i data-lucide="book-open" class="w-5 h-5"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="font-display font-bold text-lg tracking-wide text-[#2b221a] dark:text-[#f4ede6]">The Whispers of Eldoria</span>
+            <span class="text-xs px-2 py-0.5 rounded-full bg-[#ebd7c1] dark:bg-[#2e2936] text-[#825424] dark:text-[#e5a93c] font-sans font-medium">Vol. 1</span>
+          </div>
+          <p class="text-xs text-[#7e6955] dark:text-[#9e9488] font-sans">
+            Scribe's Hearth • <span class="font-medium text-[#b36f23] dark:text-[#f3b544]">Authored by Jani</span>
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Metrics & Atmosphere Control -->
+      <div class="flex items-center gap-4">
+        <!-- Wordcount Badge -->
+        <div class="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#ede0ce] dark:bg-[#1d1b22] border border-[#ddcbb7] dark:border-[#2f2b38] text-xs font-sans text-[#634e3a] dark:text-[#c7beb3]">
+          <i data-lucide="feather" class="w-3.5 h-3.5 text-[#b36f23] dark:text-[#e5a93c]"></i>
+          <span class="font-semibold">42,850</span> wds
+          <span class="text-[#ad9782]">|</span>
+          <span class="text-emerald-700 dark:text-emerald-400 font-medium">+1,240 today</span>
+        </div>
+
+        <!-- 3-Way Atmosphere Engine Switcher -->
+        <div class="flex items-center p-1 rounded-xl bg-[#ebdcce] dark:bg-[#1e1c24] border border-[#d8c5b0] dark:border-[#2d2936] text-xs font-sans">
+          <button onclick="setTheme('light')" id="btn-theme-light" class="px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all text-[#665341] dark:text-[#9c9183] hover:text-black">
+            <i data-lucide="sun" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Light</span>
+          </button>
+          <button onclick="setTheme('sepia')" id="btn-theme-sepia" class="px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all bg-[#d8be9f] text-[#362719] font-semibold shadow-sm">
+            <i data-lucide="coffee" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Sepia</span>
+          </button>
+          <button onclick="setTheme('dark')" id="btn-theme-dark" class="px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all text-[#665341] dark:text-[#9c9183] hover:text-black dark:hover:text-white">
+            <i data-lucide="moon" class="w-3.5 h-3.5"></i>
+            <span class="hidden md:inline">Dark</span>
+          </button>
+        </div>
+
+        <!-- Author Colophon Avatar -->
+        <div class="relative group cursor-pointer" title="Scribe Jani's Scriptorium Profile">
+          <div class="w-9 h-9 rounded-full bg-[#e8cfb3] dark:bg-[#322d3d] border-2 border-[#b8823d] flex items-center justify-center font-display font-bold text-sm text-[#7a4918] dark:text-[#e5a93c] shadow-sm">
+            J
+          </div>
+          <span class="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-500 rounded-full border border-white dark:border-[#121114]"></span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= SUB-NAVIGATION TABS ================= -->
+  <nav class="border-b border-[#e5d4c0] dark:border-[#2a2730] px-4 sm:px-8 bg-[#f2e7d8] dark:bg-[#16141a]">
+    <div class="max-w-6xl mx-auto flex items-center gap-2 sm:gap-6 overflow-x-auto py-2">
+      <button onclick="switchTab('codex')" id="nav-codex" class="tab-btn px-3 py-1.5 rounded-lg text-sm font-sans flex items-center gap-2 font-semibold text-[#8c521a] dark:text-[#e5a93c] bg-[#e4cfb8] dark:bg-[#25222b]">
+        <i data-lucide="layout-dashboard" class="w-4 h-4"></i> The Grand Codex
+      </button>
+      <button onclick="switchTab('study')" id="nav-study" class="tab-btn px-3 py-1.5 rounded-lg text-sm font-sans flex items-center gap-2 text-[#725e4c] dark:text-[#9c9183] hover:text-[#2b221a] dark:hover:text-white">
+        <i data-lucide="quill" class="w-4 h-4"></i> The Quiet Study
+      </button>
+      <button onclick="switchTab('export')" id="nav-export" class="tab-btn px-3 py-1.5 rounded-lg text-sm font-sans flex items-center gap-2 text-[#725e4c] dark:text-[#9c9183] hover:text-[#2b221a] dark:hover:text-white">
+        <i data-lucide="printer" class="w-4 h-4"></i> Export & Typesetting
+      </button>
+      <button onclick="switchTab('relationships')" id="nav-relationships" class="tab-btn px-3 py-1.5 rounded-lg text-sm font-sans flex items-center gap-2 text-[#725e4c] dark:text-[#9c9183] hover:text-[#2b221a] dark:hover:text-white">
+        <i data-lucide="git-fork" class="w-4 h-4"></i> Character Web
+      </button>
+    </div>
+  </nav>
+
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-8 py-8 flex-1 w-full">
+
+    <!-- VIEW 1: THE GRAND CODEX -->
+    <section id="view-codex" class="space-y-8">
+      <div class="p-6 sm:p-8 rounded-3xl bg-[#f0e3d2] dark:bg-[#1a1820] border border-[#decab3] dark:border-[#2d2936] shadow-sm relative overflow-hidden">
+        <div class="relative z-10 max-w-2xl">
+          <div class="flex items-center gap-2 text-xs uppercase tracking-widest text-[#a16223] dark:text-[#e5a93c] font-sans font-bold mb-2">
+            <i data-lucide="flame" class="w-4 h-4"></i> Sanctuary of Letters
+          </div>
+          <h1 class="font-display text-3xl sm:text-4xl font-bold text-[#2a2017] dark:text-[#f5eee6] leading-tight mb-2">
+            Welcome back, Scribe Jani.
+          </h1>
+          <p class="text-base text-[#6f5b49] dark:text-[#aba195] italic mb-6">
+            "The tallow candle is lit, and Eldoria awaits your quill."
+          </p>
+
+          <div class="p-4 rounded-2xl bg-[#e6d6c3] dark:bg-[#23202b] border border-[#d6beaa] dark:border-[#332e3d] space-y-3">
+            <div class="flex items-center justify-between text-xs font-sans">
+              <span class="font-semibold text-[#544131] dark:text-[#ddd4cb] flex items-center gap-1.5">
+                <i data-lucide="bookmark" class="w-3.5 h-3.5 text-[#b36f23] dark:text-[#e5a93c]"></i>
+                Current Arc: The Clockwork Abbey (Chapter XIV)
+              </span>
+              <span class="font-mono text-[#8a531e] dark:text-[#e5a93c] font-bold">42,850 / 80,000 wds (53%)</span>
+            </div>
+            <div class="w-full h-2.5 rounded-full bg-[#d7c4af] dark:bg-[#322c3c] overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-[#d98b2c] to-[#e8ab49] rounded-full" style="width: 53.5%"></div>
+            </div>
+            <div class="flex items-center justify-between text-xs font-sans text-[#786350] dark:text-[#9e9488]">
+              <span class="flex items-center gap-1"><i data-lucide="flame" class="w-3.5 h-3.5 text-amber-600"></i> 14-day writing streak</span>
+              <span>172 estimated print folios</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-3 mt-6">
+            <button onclick="switchTab('study')" class="px-5 py-2.5 rounded-xl bg-[#b67324] hover:bg-[#a0631c] text-white font-sans text-sm font-semibold flex items-center gap-2 shadow-sm transition-all">
+              <i data-lucide="edit-3" class="w-4 h-4"></i> Resume Chapter XIV
+            </button>
+            <button onclick="switchTab('export')" class="px-4 py-2.5 rounded-xl bg-[#e3d0bb] dark:bg-[#26232e] hover:bg-[#d9c4ad] text-[#4d3b2b] dark:text-[#ddd4cb] font-sans text-sm font-medium flex items-center gap-2 transition-all">
+              <i data-lucide="printer" class="w-4 h-4"></i> Manuscript Typeset
+            </button>
+            <button onclick="switchTab('relationships')" class="px-4 py-2.5 rounded-xl bg-[#e3d0bb] dark:bg-[#26232e] hover:bg-[#d9c4ad] text-[#4d3b2b] dark:text-[#ddd4cb] font-sans text-sm font-medium flex items-center gap-2 transition-all">
+              <i data-lucide="git-fork" class="w-4 h-4"></i> Relationship Web
+            </button>
+          </div>
+        </div>
+
+        <div class="absolute -right-8 -bottom-8 opacity-10 pointer-events-none text-[#5e380f] dark:text-[#c7913e]">
+          <i data-lucide="compass" class="w-80 h-80"></i>
+        </div>
+      </div>
+
+      <!-- Codex Shelves -->
+      <div>
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-display text-xl font-bold text-[#2a2017] dark:text-[#f2ebe2] flex items-center gap-2">
+            <i data-lucide="library" class="w-5 h-5 text-[#b36f23] dark:text-[#e5a93c]"></i> Active Codex Shelves
+          </h2>
+          <span class="text-xs font-sans text-[#8f755e] dark:text-[#9e9488]">14 Curated Tomes</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="p-5 rounded-2xl bg-[#f2e5d5] dark:bg-[#1a1820] border border-[#dfcdb7] dark:border-[#2b2734] hover:border-[#b8823d] transition-all cursor-pointer">
+            <div class="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-400 flex items-center justify-center mb-3">
+              <i data-lucide="map" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#8f8578]">Atlas</div>
+            <h3 class="font-display font-bold text-lg text-[#261d15] dark:text-[#ede4da] mb-1">World Atlas</h3>
+            <p class="text-xs text-[#6e5a48] dark:text-[#998f82] mb-3">3 Realms • 12 Regions mapped with geography & customs.</p>
+            <div class="text-[11px] font-sans font-medium text-emerald-800 dark:text-emerald-400">Latest: Iron Mire Marshes</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-[#f2e5d5] dark:bg-[#1a1820] border border-[#dfcdb7] dark:border-[#2b2734] hover:border-[#b8823d] transition-all cursor-pointer" onclick="switchTab('relationships')">
+            <div class="w-9 h-9 rounded-xl bg-indigo-100 dark:bg-indigo-950 text-indigo-800 dark:text-indigo-400 flex items-center justify-center mb-3">
+              <i data-lucide="users" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#8f8578]">Cast</div>
+            <h3 class="font-display font-bold text-lg text-[#261d15] dark:text-[#ede4da] mb-1">Dramatis Personae</h3>
+            <p class="text-xs text-[#6e5a48] dark:text-[#998f82] mb-3">18 Characters • 4 Major Factions & guilds.</p>
+            <div class="text-[11px] font-sans font-medium text-indigo-800 dark:text-indigo-400">Active: Corvus & Alyssa</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-[#f2e5d5] dark:bg-[#1a1820] border border-[#dfcdb7] dark:border-[#2b2734] hover:border-[#b8823d] transition-all cursor-pointer">
+            <div class="w-9 h-9 rounded-xl bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-400 flex items-center justify-center mb-3">
+              <i data-lucide="git-branch" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#8f8578]">Arcs</div>
+            <h3 class="font-display font-bold text-lg text-[#261d15] dark:text-[#ede4da] mb-1">Plot Threads</h3>
+            <p class="text-xs text-[#6e5a48] dark:text-[#998f82] mb-3">4 Active Arcs • Tension tracking & turning points.</p>
+            <div class="text-[11px] font-sans font-medium text-rose-800 dark:text-rose-400">Tension: 82% Critical</div>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-[#f2e5d5] dark:bg-[#1a1820] border border-[#dfcdb7] dark:border-[#2b2734] hover:border-[#b8823d] transition-all cursor-pointer">
+            <div class="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-400 flex items-center justify-center mb-3">
+              <i data-lucide="sparkles" class="w-5 h-5"></i>
+            </div>
+            <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#8f8578]">Lore</div>
+            <h3 class="font-display font-bold text-lg text-[#261d15] dark:text-[#ede4da] mb-1">Artifacts & Lore</h3>
+            <p class="text-xs text-[#6e5a48] dark:text-[#998f82] mb-3">27 Curated Relics, magic formulas, and songs.</p>
+            <div class="text-[11px] font-sans font-medium text-amber-800 dark:text-amber-400">Updated: Gilded Astrolabe</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marginalia Box -->
+      <div class="p-6 rounded-2xl bg-[#f0e3d2] dark:bg-[#1a1820] border border-[#decab3] dark:border-[#2d2936]">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="font-display font-bold text-base text-[#2a2017] dark:text-[#ede4da] flex items-center gap-2">
+            <i data-lucide="pin" class="w-4 h-4 text-[#a16223]"></i> Recent Scribbles & Marginalia
+          </h3>
+          <span class="text-xs font-sans text-[#8f755e] dark:text-[#8f8578]">Pinned by Jani</span>
+        </div>
+        <div class="p-4 rounded-xl bg-[#e7d8c5] dark:bg-[#221f29] border-l-4 border-[#b46d23] text-sm text-[#47382a] dark:text-[#d3c9bd] italic">
+          "The lantern burns blue when the clockwork monks tell a lie. Alyssa must smell the brass sulfur before Corvus draws his key."
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 2: THE QUIET STUDY -->
+    <section id="view-study" class="space-y-6 hidden">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#decab3] dark:border-[#2d2936]">
+        <div>
+          <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#e5a93c] tracking-wider">
+            Act II • In Progress • Alyssa's Vantage
+          </div>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-[#2a2017] dark:text-[#f4ede6]">
+            Chapter XIV: The Clockwork Abbey
+          </h2>
+          <p class="text-xs text-[#6e5a48] dark:text-[#9c9183] italic">Folio 148 — Scribe Jani's Scriptorium</p>
+        </div>
+        <div class="flex items-center gap-3">
+          <span class="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950 text-emerald-800 dark:text-emerald-400 text-xs font-sans font-medium flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span> Canon Synchronized
+          </span>
+          <button class="px-4 py-2 rounded-xl bg-[#b67324] text-white text-xs font-sans font-semibold flex items-center gap-1.5 shadow-sm">
+            <i data-lucide="check-circle" class="w-4 h-4"></i> Seal Chapter
+          </button>
+        </div>
+      </div>
+
+      <div class="max-w-3xl mx-auto p-8 sm:p-12 rounded-3xl bg-[#fbf5ed] dark:bg-[#18161e] border border-[#e2d2c1] dark:border-[#2f2b38] shadow-sm leading-relaxed text-lg sm:text-xl text-[#2d241c] dark:text-[#ddd4cb] space-y-6">
+        <p class="drop-cap">
+          The rain fell against the high stained-glass windows of the Abbey like spilled amber beads from a shattered rosary. Alyssa adjusted her wire-frame spectacles, the intricate brass escapement nestled deep in the heel of her palm humming with faint, rhythmic tremors. Through the nave, the shadows smelled of cold stone and forgotten incense.
+        </p>
+        <p>
+          Below the high altar, where monks had once knelt in penitence, a labyrinth of clockwork rotors turned in perpetual solemnity. Each brass tooth was inscribed with a tiny glyph, turning the immense weight of the cathedral into an altar for <span class="bg-[#ecdccb] dark:bg-[#282432] px-2 py-0.5 rounded text-[#7e4713] dark:text-[#e5a93c] font-medium border border-[#dec9b4] dark:border-[#3c3648]">Aether-Cores</span>. She paused her quill, listening intently to the cathedral rafters above.
+        </p>
+        <p class="italic text-[#524131] dark:text-[#b5ab9e] pl-4 border-l-2 border-[#caa885] dark:border-[#423a4d]">
+          "You tread loudly for a heretic," came a dry whisper from behind the choir stalls. Alyssa did not turn. She knew the dry rattle of that voice, like dry scrolls unfurled in winter. Corvus stepped into the pale light, his leather mantle soaked dark at the shoulders.
+        </p>
+        <div class="p-4 rounded-xl bg-[#f0e2d0] dark:bg-[#221f29] border border-[#dfcbb3] dark:border-[#383244] text-xs font-sans not-italic">
+          <div class="flex items-center gap-1.5 font-bold text-[#9e6224] dark:text-[#e5a93c] mb-1">
+            <i data-lucide="feather" class="w-3.5 h-3.5"></i> Marginalia • Revision Note by Jani
+          </div>
+          <p class="text-[#594634] dark:text-[#c4bbb0]">
+            "Remember: Describe the acrid vapor of the blue lantern before Corvus speaks. His arrival should feel poisoned."
+          </p>
+        </div>
+        <p>
+          He reached beneath his cloak, lifting a small, silvered key that caught the trembling flame of her tallow candle. "They have already sealed the crypt gates. If you wish to reach the Foundry before dawn, you will need more than your father's pocket watch."
+        </p>
+        <div class="py-6 text-center text-[#966b3b] dark:text-[#caa86e] font-cinzel text-xl tracking-widest select-none">
+          ❦ &nbsp;✦ &nbsp;❦
+        </div>
+        <p>
+          Alyssa tightened her grip on the brass cylinder. Outside, thunder rattled the leaded glass, while beneath the flagstones, the grand gears answered in kind, striking eleven solemn chords into the hollow belly of the night...
+        </p>
+      </div>
+    </section>
+
+    <!-- VIEW 3: MANUSCRIPT EXPORT -->
+    <section id="view-export" class="space-y-8 hidden">
+      <div>
+        <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#e5a93c] tracking-wider mb-1">
+          Volume I Edition • Act II In-Progress
+        </div>
+        <h2 class="font-display text-3xl font-bold text-[#2a2017] dark:text-[#f4ede6]">
+          Manuscript Export & Typesetting Suite
+        </h2>
+        <p class="text-sm text-[#6e5a48] dark:text-[#9c9183]">
+          Pre-flight audit, print-ready trim folios, EPUB presets, and Shunn query package formats.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-6">
+          <div class="p-6 rounded-2xl bg-[#f0e3d2] dark:bg-[#1a1820] border border-[#decab3] dark:border-[#2d2936] space-y-4">
+            <h3 class="font-display font-bold text-lg text-[#2a2017] dark:text-[#ede4da] flex items-center gap-2">
+              <i data-lucide="book" class="w-5 h-5 text-[#b36f23]"></i> Publication Format
+            </h3>
+            <div class="p-4 rounded-xl bg-[#e5d4c0] dark:bg-[#25222b] border-2 border-[#b67324] flex items-start gap-4">
+              <input type="radio" name="format" checked class="mt-1 accent-[#b67324]" />
+              <div class="flex-1">
+                <span class="font-sans font-bold text-sm text-[#2e2217] dark:text-[#f2ebe2]">Print Edition (6" × 9" Royal Octavo)</span>
+                <p class="text-xs text-[#6e5a48] dark:text-[#998f82] mt-1">Hardcover & Trade Paperback certified for IngramSpark and KDP Print Bleed.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="p-6 rounded-2xl bg-[#f0e3d2] dark:bg-[#1a1820] border border-[#decab3] dark:border-[#2d2936] space-y-4">
+            <h3 class="font-display font-bold text-base text-[#2a2017] dark:text-[#ede4da] flex items-center gap-2">
+              <i data-lucide="stamp" class="w-4 h-4 text-[#b36f23]"></i> Colophon & Legal Imprint
+            </h3>
+            <div class="p-4 rounded-xl bg-[#fcf8f2] dark:bg-[#151319] border border-[#ded0bf] dark:border-[#2c2834] font-serif text-xs text-[#524131] dark:text-[#aba195] space-y-2 leading-relaxed">
+              <div class="font-display font-bold text-sm text-[#2b221a] dark:text-[#eee5db]">THE WHISPERS OF ELDORIA</div>
+              <div class="pt-2 border-t border-[#ebd8c5] dark:border-[#2a2732] font-sans text-[11px] text-[#78614c] dark:text-[#998f82]">
+                <strong>Copyright:</strong> © 2025 Jani<br/>
+                <strong>Imprint:</strong> Scribe's Hearth Workshop<br/>
+                <strong>Author Attribution:</strong> Jani
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: RELATIONSHIPS -->
+    <section id="view-relationships" class="space-y-6 hidden">
+      <div>
+        <div class="text-xs font-sans uppercase font-bold text-[#967352] dark:text-[#e5a93c] tracking-wider mb-1">
+          Dramatis Personae Constellation
+        </div>
+        <h2 class="font-display text-3xl font-bold text-[#2a2017] dark:text-[#f4ede6]">
+          Character Relationship Web
+        </h2>
+      </div>
+
+      <div class="p-6 rounded-2xl bg-[#f0e3d2] dark:bg-[#1a1820] border-2 border-[#b8823d] shadow-sm space-y-4">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-sans font-bold uppercase tracking-wider text-[#b36f23] dark:text-[#e5a93c]">Key Tension Dynamic</span>
+          <span class="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950 text-rose-800 dark:text-rose-400 font-sans text-xs font-bold">Unstable Alliance</span>
+        </div>
+        <div class="flex items-center justify-between py-2 text-center">
+          <div>
+            <div class="font-display font-bold text-sm">Alyssa Vance</div>
+            <div class="text-[11px] font-sans text-[#78614c] dark:text-[#998f82]">Horologist Scribe</div>
+          </div>
+          <div class="text-xs font-sans italic text-[#9e6727] dark:text-[#e5a93c]">"He holds the crypt key she swore never to ask for."</div>
+          <div>
+            <div class="font-display font-bold text-sm">Corvus Grey</div>
+            <div class="text-[11px] font-sans text-[#78614c] dark:text-[#998f82]">Rogue Watchman</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= GLOBAL COLOPHON FOOTER ================= -->
+  <footer class="border-t border-[#e5d4c0] dark:border-[#2a2730] py-6 px-4 sm:px-8 text-center text-xs font-sans text-[#7d6754] dark:text-[#8a8073] bg-[#f2e7d8] dark:bg-[#141217]">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+      <div><strong>Scribe's Hearth</strong> — Creative Sanctuary, Codex & Typesetting Workshop</div>
+      <div>Designed & Authored with devotion by <strong>Jani</strong> • MIT License</div>
+      <div class="flex items-center gap-4 text-[#9c754a] dark:text-[#caa86e]">
+        <span>Light / Sepia / Dark Engine</span> • <span>Folio v1.0.0</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ================= INTERACTIVE JAVASCRIPT ================= -->
+  <script>
+    lucide.createIcons();
+
+    function switchTab(tabName) {
+      const views = ['codex', 'study', 'export', 'relationships'];
+      views.forEach(v => {
+        const el = document.getElementById('view-' + v);
+        const btn = document.getElementById('nav-' + v);
+        if (v === tabName) {
+          el.classList.remove('hidden');
+          btn.classList.add('font-semibold', 'text-[#8c521a]', 'dark:text-[#e5a93c]', 'bg-[#e4cfb8]', 'dark:bg-[#25222b]');
+          btn.classList.remove('text-[#725e4c]', 'dark:text-[#9c9183]');
+        } else {
+          el.classList.add('hidden');
+          btn.classList.remove('font-semibold', 'text-[#8c521a]', 'dark:text-[#e5a93c]', 'bg-[#e4cfb8]', 'dark:bg-[#25222b]');
+          btn.classList.add('text-[#725e4c]', 'dark:text-[#9c9183]');
+        }
+      });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setTheme(theme) {
+      document.body.classList.remove('theme-light', 'theme-sepia', 'theme-dark');
+      document.documentElement.classList.remove('dark');
+
+      const btnLight = document.getElementById('btn-theme-light');
+      const btnSepia = document.getElementById('btn-theme-sepia');
+      const btnDark = document.getElementById('btn-theme-dark');
+
+      [btnLight, btnSepia, btnDark].forEach(btn => {
+        btn.className = 'px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all text-[#665341] dark:text-[#9c9183] hover:text-black dark:hover:text-white';
+      });
+
+      if (theme === 'light') {
+        document.body.classList.add('theme-light');
+        btnLight.className = 'px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all bg-white text-stone-900 font-semibold shadow-sm';
+      } else if (theme === 'sepia') {
+        document.body.classList.add('theme-sepia');
+        btnSepia.className = 'px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all bg-[#d8be9f] text-[#362719] font-semibold shadow-sm';
+      } else if (theme === 'dark') {
+        document.body.classList.add('theme-dark');
+        document.documentElement.classList.add('dark');
+        btnDark.className = 'px-2.5 py-1 rounded-lg flex items-center gap-1.5 transition-all bg-[#342f3d] text-amber-300 font-semibold shadow-sm';
+      }
+
+      localStorage.setItem('scribes_hearth_theme', theme);
+    }
+
+    const savedTheme = localStorage.getItem('scribes_hearth_theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    }
+  </script>
+</body>
+</html>
